@@ -1,4 +1,5 @@
 import { createStore } from 'vuex'
+import { loginRequest } from "@/utils/api";
 
 export default createStore({
   state: {

@@ -1,4 +1,4 @@
-const API = process.env.VUE_APP_API;
+const API = 'http://lifestealer86.ru/api-shop';
 
 export const loginRequest = (user) => {
     return new Promise((resolve, reject) => {

@@ -1,4 +1,5 @@
-<script setup>
+<script>
+
 export default {
   data() {
     return {
@@ -13,9 +14,10 @@ export default {
         password: this.password,
       };
 
-      this.$store
-          .dispatch(AUTH_REQUEST, userData)
-          .then(() => this.$router.push("/"));
+      this.$store.dispatch('AUTH_REQUEST', userData).then(() => this.$router.push("/")).catch((err) => {
+        console.error("Ошибка входа:", err);
+      });
+
     },
   },
 };
@@ -25,7 +27,7 @@ export default {
   <form class="login" @submit.prevent="login">
     <h1>Sign-in</h1>
     <label>User name</label>
-    <input type="text" required·v-model="username" />
+    <input type="text" required v-model="username" />
     <label>Password</label>
     <input type="password" required v-model="password" />
     <hr />
