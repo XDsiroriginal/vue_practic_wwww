@@ -10,7 +10,7 @@ export default {
   methods: {
     login() {
       const userData = {
-        username: this.username,
+        email: this.username,
         password: this.password,
       };
 
@@ -27,7 +27,7 @@ export default {
   <form class="login" @submit.prevent="login">
     <h1>Sign-in</h1>
     <label>User name</label>
-    <input type="text" required v-model="username" />
+    <input type="email" required v-model="username" />
     <label>Password</label>
     <input type="password" required v-model="password" />
     <hr />
