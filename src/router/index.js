@@ -35,6 +35,13 @@ const routes = [
     },
     beforeEnter: ifNotAuthenticated,
   },
+  {
+    path: '/productCatalog',
+    name: 'catalog',
+    component: function () {
+      return import('../components/ProductСatalog.vue');
+    },
+  },
 ]
 
 const router = createRouter({

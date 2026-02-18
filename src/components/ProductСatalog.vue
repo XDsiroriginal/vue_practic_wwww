@@ -1,32 +1,46 @@
 <script setup>
 
+  import axios from "axios";
+  import { ref, onMounted } from 'vue'
+
   const items = ref([])
 
-  import axios from "axios";
   const fetchData = async () => {
-    const response = await axios.get("http://lifestealer86.ru/api-shop/products");
-    items.value = response.data;
-    console.log(items);
+    try {
+      const response = await axios.get("http://lifestealer86.ru/api-shop/products");
+
+      items.value = response.data.data;
+
+      console.log('Все товары:', items.value);
+      console.log('Первый товар:', items.value[0]);
+
+    } catch (error) {
+      console.error('Ошибка загрузки данных:', error);
+    }
+    console.log('Товары (копия):', JSON.parse(JSON.stringify(items.value)));
   }
 
   onMounted(() => {
     fetchData();
   });
+
+
 </script>
 
 <template>
   <div class="catalog">
-    <div class="cart">
-      <h3 class="cart-name"></h3>
-      <img src="" alt="" class="cart-image">
-      <p class="cart-description"></p>
-      <p class="price"></p>
+    <div class="cart" v-for="cart in items">
+      <h3 class="cart-name">{{ cart.name }}</h3>
+      <img :src="'http://lifestealer86.ru/' + cart.image" :alt="cart.name" class="cart-image">
+      <p class="cart-description">{{ cart.description }}</p>
+      <p class="price">{{ cart.price }}</p>
     </div>
   </div>
 </template>
 
 <style scoped>
   .catalog {
+    width: 90%;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 30px;
