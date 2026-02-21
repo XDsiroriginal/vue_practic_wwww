@@ -11,9 +11,6 @@
 
       items.value = response.data.data;
 
-      console.log('Все товары:', items.value);
-      console.log('Первый товар:', items.value[0]);
-
     } catch (error) {
       console.error('Ошибка загрузки данных:', error);
     }

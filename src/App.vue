@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <router-link to="/productCatalog">catalog</router-link> |
+    <router-link to="/">catalog</router-link> |
   </nav>
   <router-view/>
 </template>

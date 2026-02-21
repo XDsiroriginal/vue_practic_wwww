@@ -23,7 +23,7 @@ const routes = [
     path: '/',
     name: 'home',
     component: function () {
-      return import('../views/HomeView.vue');
+      return import('../components/ProductСatalog.vue');
     },
     beforeEnter: ifAuthenticated,
   },
@@ -34,13 +34,6 @@ const routes = [
       return import('../components/Login.vue');
     },
     beforeEnter: ifNotAuthenticated,
-  },
-  {
-    path: '/productCatalog',
-    name: 'catalog',
-    component: function () {
-      return import('../components/ProductСatalog.vue');
-    },
   },
 ]
 
