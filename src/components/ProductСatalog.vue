@@ -1,7 +1,9 @@
 <script setup>
 
   import axios from "axios";
-  import { ref, onMounted } from 'vue'
+  import {ref, onMounted, computed} from 'vue'
+
+  import store from "@/store";
 
   const items = ref([])
 
@@ -17,6 +19,9 @@
     console.log('Товары (копия):', JSON.parse(JSON.stringify(items.value)));
   }
 
+  const fio = computed(() => store.getters.fio || 'no authenticate ')
+  const email = computed(() => store.getters.email || 'no authenticate ')
+
   onMounted(() => {
     fetchData();
   });
@@ -25,17 +30,112 @@
 </script>
 
 <template>
+
+  <header class="header">
+    <div class="header-container">
+      <div class="user-info">
+        <span class="user-fio">Фио: {{ fio }}</span>
+        <span class="user-email">email: {{ email }}</span>
+      </div>
+
+      <button class="logout-btn" @click="logoutHandler">
+        Выйти из аккаунта
+      </button>
+    </div>
+  </header>
+
   <div class="catalog">
     <div class="cart" v-for="cart in items">
       <h3 class="cart-name">{{ cart.name }}</h3>
       <img :src="'http://lifestealer86.ru/' + cart.image" :alt="cart.name" class="cart-image">
       <p class="cart-description">{{ cart.description }}</p>
-      <p class="price">{{ cart.price }}</p>
+      <div class="down_panel">
+        <p class="price">{{ cart.price }}</p>
+        <button v-show="store.getters.isAuthenticated" class="add-to-cart">Добавить в корзину</button>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+
+  .header {
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+  }
+
+  .header-container {
+    width: 90%;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .user-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .user-fio {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #2c3e50;
+  }
+
+  .user-email {
+    font-size: 0.9rem;
+    color: #666;
+  }
+
+  .logout-btn {
+    padding: 8px 20px;
+    background-color: transparent;
+    border: 1px solid #e74c3c;
+    color: #e74c3c;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .logout-btn:hover {
+    background-color: #e74c3c;
+    color: #fff;
+    transform: translateY(-2px);
+  }
+
+
+  .down_panel {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .add-to-cart {
+    width: 150px;
+    height: 40px;
+    background-color: cadetblue;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    transition: 0.3s;
+  }
+
+  .add-to-cart:hover {
+    background-color: #497a7b;
+    transition: 0.3s;
+  }
+
   .catalog {
     width: 90%;
     display: grid;

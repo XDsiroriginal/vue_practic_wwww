@@ -4,9 +4,12 @@ import { loginRequest } from "@/utils/api";
 export default createStore({
   state: {
     token: localStorage.getItem('myAppToken') || '',
+    user: JSON.parse(localStorage.getItem('userData') || null)
   },
   getters: {
     isAuthenticated: (state) => !!state.token,
+    fio: (state) => state.user.fio || '',
+    email: (state) => state.user.email || '',
   },
   mutations: {
     AUTH_SUCCESS: (state, token) => {

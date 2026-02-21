@@ -25,7 +25,6 @@ const routes = [
     component: function () {
       return import('../components/ProductСatalog.vue');
     },
-    beforeEnter: ifAuthenticated,
   },
   {
     path: '/login',
@@ -33,7 +32,6 @@ const routes = [
     component: function () {
       return import('../components/Login.vue');
     },
-    beforeEnter: ifNotAuthenticated,
   },
 ]
 
