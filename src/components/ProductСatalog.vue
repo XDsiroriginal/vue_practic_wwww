@@ -20,10 +20,25 @@
   }
 
   const fio = computed(() => store.getters.fio || 'no authenticate ')
-  const email = computed(() => store.getters.email || 'no authenticate ')
+  const email = computed(() => store.getters.email || 'no authenticate')
 
   onMounted(() => {
     fetchData();
+
+    console.log('--- Store State ---');
+    console.log('Token:', store.state.token);
+    console.log('User Object:', store.state.user);
+
+    console.log('--- Store Getters ---');
+    console.log('Fio Getter:', store.getters.fio);
+    console.log('Email Getter:', store.getters.email); // Будет undefined, так как закомментировано
+
+    console.log('--- LocalStorage ---');
+    console.log('LS Token:', localStorage.getItem('myAppToken'));
+    console.log('LS User:', localStorage.getItem('userData'));
+
+    console.log('Полный объект пользователя из store:', store.state.user);
+    console.log('Все данные store:', store.state);
   });
 
 

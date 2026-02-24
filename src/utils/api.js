@@ -1,5 +1,7 @@
 const API = 'http://lifestealer86.ru/api-shop';
 
+import axios from 'axios';
+
 export const loginRequest = (user) => {
     return fetch(`${API}/login`, {
         method: 'POST',
@@ -24,7 +26,6 @@ export const loginRequest = (user) => {
         .then((result) => {
             if (result.data && result.data.user_token) {
                 return result.data.user_token;
-                console.log('проверка токена')
             }
             throw new Error('Неверный формат ответа');
         })
@@ -33,5 +34,22 @@ export const loginRequest = (user) => {
                 alert('Нет соединения с сервером');
             }
             throw error;
+        });
+};
+
+export const getUserData = (token) => {
+    return fetch(`${API}/user`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+            'Authorization': `Bearer ${token}`
+        },
+    })
+        .then((response) => {
+            if (!response.ok) throw new Error('Ошибка получения данных');
+            return response.json();
+        })
+        .then((data) => {
+            return data.data || data;
         });
 };
